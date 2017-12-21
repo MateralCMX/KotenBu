@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>用户配置</title>
+    <link href="../../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../CSS/Base.css" rel="stylesheet" />
+    <link href="../../CSS/User/User.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="page-header">
+        <h1>用户中心 <small>用户配置</small></h1>
+    </header>
+    <form class="form-inline SearchForm">
+        <div class="form-group">
+            <label for="SearchUserName">用户名</label>
+            <input id="SearchUserName" type="search" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="SearchNickName">昵称</label>
+            <input id="SearchNickName" type="search" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="SearchMobile">手机号码</label>
+            <input id="SearchMobile" type="search" maxlength="11" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="SearchEmail">邮箱</label>
+            <input id="SearchEmail" type="search" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="SearchTrueName">真实姓名</label>
+            <input id="SearchTrueName" type="search" class="form-control" />
+        </div>
+        <!--<div class="form-group">
+            <label for="SearchWeChatWorkUserID">企业微信账号</label>
+            <input id="SearchWeChatWorkUserID" type="search" class="form-control" />
+        </div>-->
+        <div class="form-group">
+            <label for="SearchIfEnable">启用状态</label>
+            <select id="SearchIfEnable" class="form-control">
+                <option value="null">全部</option>
+                <option value="true">启用</option>
+                <option value="false">禁用</option>
+            </select>
+        </div>
+        <div class="form-group OptionBtnGroup">
+            <div class="btn-group" role="group">
+                <button id="BtnSearch" type="button" class="btn btn-default">查询</button>
+                <button id="BtnAdd" type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">新增</button>
+            </div>
+        </div>
+    </form>
+    <main>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>真实姓名</th>
+                    <th>昵称</th>
+                    <th>邮箱</th>
+                    <th>手机号码</th>
+                    <th>用户名</th>
+                    <!--<th>企业微信账户</th>-->
+                    <th>启用/禁用</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="DataTable"></tbody>
+        </table>
+        <nav id="PageInfo"></nav>
+    </main>
+    <!-- 删除窗体 -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="DeleteModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    确定要删除该项吗？
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnDelete" type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否，不删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 修改窗体 -->
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="EditModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="InputForm">
+                        <div class="form-group">
+                            <label class="control-label" for="InputTrueName">真实姓名</label>
+                            <input type="text" class="form-control" id="InputTrueName" maxlength="50" placeholder="真实姓名" pattern="^[\u4E00-\u9FA5]+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputNickName">昵称*</label>
+                            <input type="text" class="form-control" id="InputNickName" maxlength="50" placeholder="昵称" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputMobile">手机号码*</label>
+                            <input type="text" class="form-control" id="InputMobile" maxlength="11" placeholder="手机号码" required pattern="^(13|14|15|18|17)\d{9}$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputEmail">邮箱*</label>
+                            <input type="email" class="form-control" id="InputEmail" maxlength="100" placeholder="电子邮件地址" required pattern="^\w+@\w+\.\w+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputUserName">用户名*</label>
+                            <input type="text" class="form-control" id="InputUserName" maxlength="50" placeholder="用户名" required pattern="^[a-zA-Z\d]+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="control-label" for="InputWeChatWorkUserID">企业微信账户</label>
+                            <input type="text" class="form-control" id="InputWeChatWorkUserID" placeholder="企业微信账户" maxlength="20">
+                            <span class="help-block"></span>
+                        </div>-->
+                        <div class="checkbox">
+                            <label>
+                                <input id="InputIfEnable" type="checkbox"> 启用
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputSex">性别</label>
+                            <select id="InputSex" class="form-control"></select>
+                            <span class="help-block"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnSave" type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 设置用户组窗体 -->
+    <div class="modal fade bs-example-modal-lg" id="UserGroupModal" tabindex="-1" role="dialog" aria-labelledby="UserGroupModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="UserGroupModalLabel">设置用户组</h4>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-4">
+                        <h5>已拥有用户组</h5>
+                        <ol id="UserGroupList"></ol>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>用户组添加</h5>
+                        <form class="form-inline" id="SearchUserGroupForm">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input id="SearchUserGroupName" type="search" class="form-control" placeholder="请输入用户组名称" required>
+                                    <span class="input-group-btn">
+                                        <button id="BtnUserGroupSearch" class="btn btn-default" type="button">搜索</button>
+                                    </span>
+                                </div>
+                                <span class="help-block"></span>
+                            </div>
+                        </form>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="UserGroupDataTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../../Scripts/bootstrap.min.js"></script>
+    <script src="../../../Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../../Lib/m-Reset/m-Reset.js"></script>
+    <script src="../../../Scripts/Base.js"></script>
+    <script src="../../Scripts/User/User.js"></script>
+</body>
+</html>

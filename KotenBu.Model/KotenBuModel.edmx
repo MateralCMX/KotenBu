@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KotenBuDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_ApplicationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Types" Type="tinyint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="FK_ParentID" Type="uniqueidentifier" />
+          <Property Name="Code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ico" Type="varchar" MaxLength="100" />
+          <Property Name="Introduction" Type="nvarchar" MaxLength="200" />
+          <Property Name="Ranks" Type="int" Nullable="false" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="IfDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="TokenType" Type="tinyint" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="WeChatOpenID" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="HeadPortrait" Type="varchar" MaxLength="300" />
+          <Property Name="TrueName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegisterSources" Type="tinyint" Nullable="false" />
+          <Property Name="Sex" Type="tinyint" Nullable="false" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="IfDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Introduction" Type="nvarchar" MaxLength="200" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="IfDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_UserGroupPermissions">
+          <Key>
+            <PropertyRef Name="FK_UserGroup" />
+            <PropertyRef Name="FK_Permissions" />
+          </Key>
+          <Property Name="FK_UserGroup" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_Permissions" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_UserGroupUser">
+          <Key>
+            <PropertyRef Name="FK_UserGroup" />
+            <PropertyRef Name="FK_User" />
+          </Key>
+          <Property Name="FK_UserGroup" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KotenBuDB.dbo.V_Permissions”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Ranks" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="FK_ParentID" Type="uniqueidentifier" />
+          <Property Name="ParentName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ico" Type="varchar" MaxLength="100" />
+          <Property Name="Introduction" Type="nvarchar" MaxLength="200" />
+          <Property Name="Ranks" Type="int" Nullable="false" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KotenBuDB.dbo.V_User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="RegisterSources" />
+            <PropertyRef Name="Sex" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="WeChatOpenID" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="HeadPortrait" Type="varchar" MaxLength="300" />
+          <Property Name="TrueName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegisterSources" Type="tinyint" Nullable="false" />
+          <Property Name="Sex" Type="tinyint" Nullable="false" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KotenBuDB.dbo.V_UserGroup”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Introduction" Type="nvarchar" MaxLength="200" />
+          <Property Name="IfEnable" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_T_Permissions_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Permissions1" Type="Self.T_Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Permissions1">
+              <PropertyRef Name="FK_ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Token_T_User">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_Token" Type="Self.T_Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Token">
+              <PropertyRef Name="FK_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_UserGroupPermissions_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="1" />
+          <End Role="T_UserGroupPermissions" Type="Self.T_UserGroupPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_UserGroupPermissions">
+              <PropertyRef Name="FK_Permissions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_UserGroupPermissions_T_UserGroup">
+          <End Role="T_UserGroup" Type="Self.T_UserGroup" Multiplicity="1" />
+          <End Role="T_UserGroupPermissions" Type="Self.T_UserGroupPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_UserGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_UserGroupPermissions">
+              <PropertyRef Name="FK_UserGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_UserGroupUser_T_User">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_UserGroupUser" Type="Self.T_UserGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_UserGroupUser">
+              <PropertyRef Name="FK_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_UserGroupUser_T_UserGroup">
+          <End Role="T_UserGroup" Type="Self.T_UserGroup" Multiplicity="1" />
+          <End Role="T_UserGroupUser" Type="Self.T_UserGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_UserGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_UserGroupUser">
+              <PropertyRef Name="FK_UserGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KotenBuDBModelStoreContainer">
+          <EntitySet Name="T_ApplicationLog" EntityType="Self.T_ApplicationLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Permissions" EntityType="Self.T_Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Token" EntityType="Self.T_Token" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_UserGroup" EntityType="Self.T_UserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_UserGroupPermissions" EntityType="Self.T_UserGroupPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_UserGroupUser" EntityType="Self.T_UserGroupUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_Permissions" EntityType="Self.V_Permissions" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Permissions].[ID] AS [ID], 
+    [V_Permissions].[Name] AS [Name], 
+    [V_Permissions].[Type] AS [Type], 
+    [V_Permissions].[FK_ParentID] AS [FK_ParentID], 
+    [V_Permissions].[ParentName] AS [ParentName], 
+    [V_Permissions].[Code] AS [Code], 
+    [V_Permissions].[Ico] AS [Ico], 
+    [V_Permissions].[Introduction] AS [Introduction], 
+    [V_Permissions].[Ranks] AS [Ranks], 
+    [V_Permissions].[IfEnable] AS [IfEnable], 
+    [V_Permissions].[CreateTime] AS [CreateTime]
+    FROM [dbo].[V_Permissions] AS [V_Permissions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_User" EntityType="Self.V_User" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_User].[ID] AS [ID], 
+    [V_User].[UserName] AS [UserName], 
+    [V_User].[Mobile] AS [Mobile], 
+    [V_User].[WeChatOpenID] AS [WeChatOpenID], 
+    [V_User].[Email] AS [Email], 
+    [V_User].[Password] AS [Password], 
+    [V_User].[HeadPortrait] AS [HeadPortrait], 
+    [V_User].[TrueName] AS [TrueName], 
+    [V_User].[NickName] AS [NickName], 
+    [V_User].[RegisterSources] AS [RegisterSources], 
+    [V_User].[Sex] AS [Sex], 
+    [V_User].[IfEnable] AS [IfEnable], 
+    [V_User].[CreateTime] AS [CreateTime]
+    FROM [dbo].[V_User] AS [V_User]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_UserGroup" EntityType="Self.V_UserGroup" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_UserGroup].[ID] AS [ID], 
+    [V_UserGroup].[Name] AS [Name], 
+    [V_UserGroup].[Code] AS [Code], 
+    [V_UserGroup].[Introduction] AS [Introduction], 
+    [V_UserGroup].[IfEnable] AS [IfEnable], 
+    [V_UserGroup].[CreateTime] AS [CreateTime]
+    FROM [dbo].[V_UserGroup] AS [V_UserGroup]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_T_Permissions_T_Permissions" Association="Self.FK_T_Permissions_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Permissions1" EntitySet="T_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Token_T_User" Association="Self.FK_T_Token_T_User">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Token" EntitySet="T_Token" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_UserGroupPermissions_T_Permissions" Association="Self.FK_T_UserGroupPermissions_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_UserGroupPermissions" EntitySet="T_UserGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_UserGroupPermissions_T_UserGroup" Association="Self.FK_T_UserGroupPermissions_T_UserGroup">
+            <End Role="T_UserGroup" EntitySet="T_UserGroup" />
+            <End Role="T_UserGroupPermissions" EntitySet="T_UserGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_UserGroupUser_T_User" Association="Self.FK_T_UserGroupUser_T_User">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_UserGroupUser" EntitySet="T_UserGroupUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_UserGroupUser_T_UserGroup" Association="Self.FK_T_UserGroupUser_T_UserGroup">
+            <End Role="T_UserGroup" EntitySet="T_UserGroup" />
+            <End Role="T_UserGroupUser" EntitySet="T_UserGroupUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KotenBuDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_ApplicationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Types" Type="Byte" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="T_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FK_User" Type="Guid" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TokenType" Type="Byte" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="T_User" Relationship="Self.FK_T_Token_T_User" FromRole="T_Token" ToRole="T_User" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WeChatOpenID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HeadPortrait" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TrueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegisterSources" Type="Byte" Nullable="false" />
+          <Property Name="Sex" Type="Byte" Nullable="false" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="IfDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="T_Token" Relationship="Self.FK_T_Token_T_User" FromRole="T_User" ToRole="T_Token" />
+          <NavigationProperty Name="T_UserGroup" Relationship="Self.T_UserGroupUser" FromRole="T_User" ToRole="T_UserGroup" />
+        </EntityType>
+        <EntityType Name="T_UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Introduction" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="IfDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="T_User" Relationship="Self.T_UserGroupUser" FromRole="T_UserGroup" ToRole="T_User" />
+          <NavigationProperty Name="T_Permissions" Relationship="KotenBuDBModel.T_UserGroupPermissions" FromRole="T_UserGroup" ToRole="T_Permissions" />
+        </EntityType>
+        <EntityType Name="V_User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="RegisterSources" />
+            <PropertyRef Name="Sex" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WeChatOpenID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HeadPortrait" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TrueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegisterSources" Type="Byte" Nullable="false" />
+          <Property Name="Sex" Type="Byte" Nullable="false" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Introduction" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_T_Token_T_User">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_Token" Type="Self.T_Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Token">
+              <PropertyRef Name="FK_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="T_UserGroupUser">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="*" />
+          <End Role="T_UserGroup" Type="Self.T_UserGroup" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="KotenBuDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_ApplicationLog" EntityType="Self.T_ApplicationLog" />
+          <EntitySet Name="T_Token" EntityType="Self.T_Token" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" />
+          <EntitySet Name="T_UserGroup" EntityType="Self.T_UserGroup" />
+          <EntitySet Name="V_User" EntityType="Self.V_User" />
+          <EntitySet Name="V_UserGroup" EntityType="Self.V_UserGroup" />
+          <AssociationSet Name="FK_T_Token_T_User" Association="Self.FK_T_Token_T_User">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Token" EntitySet="T_Token" />
+          </AssociationSet>
+          <AssociationSet Name="T_UserGroupUser" Association="Self.T_UserGroupUser">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_UserGroup" EntitySet="T_UserGroup" />
+          </AssociationSet>
+          <EntitySet Name="T_Permissions" EntityType="KotenBuDBModel.T_Permissions" />
+          <EntitySet Name="V_Permissions" EntityType="KotenBuDBModel.V_Permissions" />
+          <AssociationSet Name="FK_T_Permissions_T_Permissions" Association="KotenBuDBModel.FK_T_Permissions_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Permissions1" EntitySet="T_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="T_UserGroupPermissions" Association="KotenBuDBModel.T_UserGroupPermissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_UserGroup" EntitySet="T_UserGroup" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="T_Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="FK_ParentID" Type="Guid" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Introduction" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Ranks" Type="Int32" Nullable="false" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="IfDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="T_Permissions1" Relationship="KotenBuDBModel.FK_T_Permissions_T_Permissions" FromRole="T_Permissions" ToRole="T_Permissions1" />
+          <NavigationProperty Name="T_Permissions2" Relationship="KotenBuDBModel.FK_T_Permissions_T_Permissions" FromRole="T_Permissions1" ToRole="T_Permissions" />
+          <NavigationProperty Name="T_UserGroup" Relationship="KotenBuDBModel.T_UserGroupPermissions" FromRole="T_Permissions" ToRole="T_UserGroup" />
+        </EntityType>
+        <EntityType Name="V_Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Ranks" />
+            <PropertyRef Name="IfEnable" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="FK_ParentID" Type="Guid" />
+          <Property Name="ParentName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Introduction" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Ranks" Type="Int32" Nullable="false" />
+          <Property Name="IfEnable" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_T_Permissions_T_Permissions">
+          <End Type="KotenBuDBModel.T_Permissions" Role="T_Permissions" Multiplicity="0..1" />
+          <End Type="KotenBuDBModel.T_Permissions" Role="T_Permissions1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Permissions1">
+              <PropertyRef Name="FK_ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="T_UserGroupPermissions">
+          <End Type="KotenBuDBModel.T_Permissions" Role="T_Permissions" Multiplicity="*" />
+          <End Type="KotenBuDBModel.T_UserGroup" Role="T_UserGroup" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KotenBuDBModelStoreContainer" CdmEntityContainer="KotenBuDBEntities">
+          <EntitySetMapping Name="T_ApplicationLog">
+            <EntityTypeMapping TypeName="KotenBuDBModel.T_ApplicationLog">
+              <MappingFragment StoreEntitySet="T_ApplicationLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Token">
+            <EntityTypeMapping TypeName="KotenBuDBModel.T_Token">
+              <MappingFragment StoreEntitySet="T_Token">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_User" ColumnName="FK_User" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="TokenType" ColumnName="TokenType" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User">
+            <EntityTypeMapping TypeName="KotenBuDBModel.T_User">
+              <MappingFragment StoreEntitySet="T_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="WeChatOpenID" ColumnName="WeChatOpenID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="HeadPortrait" ColumnName="HeadPortrait" />
+                <ScalarProperty Name="TrueName" ColumnName="TrueName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="RegisterSources" ColumnName="RegisterSources" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="IfDelete" ColumnName="IfDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_UserGroup">
+            <EntityTypeMapping TypeName="KotenBuDBModel.T_UserGroup">
+              <MappingFragment StoreEntitySet="T_UserGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="IfDelete" ColumnName="IfDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_User">
+            <EntityTypeMapping TypeName="KotenBuDBModel.V_User">
+              <MappingFragment StoreEntitySet="V_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="WeChatOpenID" ColumnName="WeChatOpenID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="HeadPortrait" ColumnName="HeadPortrait" />
+                <ScalarProperty Name="TrueName" ColumnName="TrueName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="RegisterSources" ColumnName="RegisterSources" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_UserGroup">
+            <EntityTypeMapping TypeName="KotenBuDBModel.V_UserGroup">
+              <MappingFragment StoreEntitySet="V_UserGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="T_UserGroupUser" TypeName="KotenBuDBModel.T_UserGroupUser" StoreEntitySet="T_UserGroupUser">
+            <EndProperty Name="T_User">
+              <ScalarProperty Name="ID" ColumnName="FK_User" />
+            </EndProperty>
+            <EndProperty Name="T_UserGroup">
+              <ScalarProperty Name="ID" ColumnName="FK_UserGroup" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="T_Permissions">
+            <EntityTypeMapping TypeName="KotenBuDBModel.T_Permissions">
+              <MappingFragment StoreEntitySet="T_Permissions">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IfDelete" ColumnName="IfDelete" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="Ranks" ColumnName="Ranks" />
+                <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+                <ScalarProperty Name="Ico" ColumnName="Ico" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="FK_ParentID" ColumnName="FK_ParentID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Permissions">
+            <EntityTypeMapping TypeName="KotenBuDBModel.V_Permissions">
+              <MappingFragment StoreEntitySet="V_Permissions">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IfEnable" ColumnName="IfEnable" />
+                <ScalarProperty Name="Ranks" ColumnName="Ranks" />
+                <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+                <ScalarProperty Name="Ico" ColumnName="Ico" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="FK_ParentID" ColumnName="FK_ParentID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="T_UserGroupPermissions" TypeName="KotenBuDBModel.T_UserGroupPermissions" StoreEntitySet="T_UserGroupPermissions">
+            <EndProperty Name="T_UserGroup">
+              <ScalarProperty Name="ID" ColumnName="FK_UserGroup" />
+            </EndProperty>
+            <EndProperty Name="T_Permissions">
+              <ScalarProperty Name="ID" ColumnName="FK_Permissions" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

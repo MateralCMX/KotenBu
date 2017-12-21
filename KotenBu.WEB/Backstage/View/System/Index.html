@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>亮未集团管理后台</title>
+    <link href="../../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../CSS/Base.css" rel="stylesheet" />
+    <link href="../../CSS/System/Index.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Backstage/View/System/Index.html">
+                    <img src="../../../Images/BackLogo.png" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul id="TopNav" class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="LoginUserName" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-toggle="modal" data-target="#EditModal">个人中心</a></li>
+                            <li><a data-toggle="modal" data-target="#EditPassowrdModal">修改密码</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="BtnLogOut">安全退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="MainPanel" class="NoLeft">
+        <div class="leftPanel"><ul id="main-nav" class="nav nav-tabs nav-stacked" style=""></ul></div>
+        <main class="rightPanel">
+            <iframe id="MainFrame" src="/Backstage/View/System/Helper.html"></iframe>
+        </main>
+    </div>
+    <!-- 个人信息窗体 -->
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="EditModalLabel">个人信息维护</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="InputForm">
+                        <div class="form-group">
+                            <label class="control-label" for="InputTrueName">真实姓名</label>
+                            <input type="text" class="form-control" id="InputTrueName" maxlength="50" placeholder="真实姓名" pattern="^[\u4E00-\u9FA5]+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputNickName">昵称*</label>
+                            <input type="text" class="form-control" id="InputNickName" maxlength="50" placeholder="昵称" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputMobile">手机号码*</label>
+                            <input type="text" class="form-control" id="InputMobile" maxlength="11" placeholder="手机号码" required pattern="^(13|14|15|18|17)\d{9}$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputEmail">邮箱*</label>
+                            <input type="email" class="form-control" id="InputEmail" maxlength="100" placeholder="电子邮件地址" required pattern="^\w+@\w+\.\w+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputUserName">用户名*</label>
+                            <input type="text" class="form-control" id="InputUserName" maxlength="50" placeholder="用户名" required pattern="^[a-zA-Z\d]+$">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputSex">性别*</label>
+                            <select id="InputSex" class="form-control"></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnSave" type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 修改密码窗体 -->
+    <div class="modal fade" id="EditPassowrdModal" tabindex="-1" role="dialog" aria-labelledby="EditPasswordModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="EditPasswordModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="PasswordInputForm">
+                        <div class="form-group">
+                            <label class="control-label" for="InputOldPassword">旧密码*</label>
+                            <input type="password" class="form-control" id="InputOldPassword" placeholder="请输入旧密码" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputNewPassword1">新密码*</label>
+                            <input type="password" class="form-control" id="InputNewPassword1" placeholder="请输入新密码" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputNewPassword2">重复密码*</label>
+                            <input type="password" class="form-control" id="InputNewPassword2" placeholder="请重复输入新密码" required>
+                            <span class="help-block"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnSavePassword" type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../../Scripts/bootstrap.min.js"></script>
+    <script src="../../../Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../../Lib/m-Reset/m-Reset.js"></script>
+    <script src="../../../Scripts/Base.js"></script>
+    <script src="../../Scripts/System/Index.js"></script>
+</body>
+</html>

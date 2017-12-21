@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4A3AB1B-E449-464E-A7CC-E933CE047CD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KotenBu.Common</RootNamespace>
+    <AssemblyName>KotenBu.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MateralTools\Base\Model\ColumnModelAttribute.cs" />
+    <Compile Include="MateralTools\Base\Model\MBaseModel.cs" />
+    <Compile Include="MateralTools\MCache\Manager\CacheManager.cs" />
+    <Compile Include="MateralTools\MCache\Manager\WebCacheManager.cs" />
+    <Compile Include="MateralTools\MChat\Manager\ChatManager.cs" />
+    <Compile Include="MateralTools\MChat\Model\ReceivedMessageModel.cs" />
+    <Compile Include="MateralTools\MChat\Model\SendMessageModel.cs" />
+    <Compile Include="MateralTools\MConvert\Manager\ConvertManager.cs" />
+    <Compile Include="MateralTools\MEmail\Manager\EmailManager.cs" />
+    <Compile Include="MateralTools\MEncryption\Manager\EncryptionManager.cs" />
+    <Compile Include="MateralTools\MEnum\Manager\EnumManager.cs" />
+    <Compile Include="MateralTools\MEnum\Model\EnumModel.cs" />
+    <Compile Include="MateralTools\MEnum\Model\EnumShowNameAttribute.cs" />
+    <Compile Include="MateralTools\MEnum\Model\EnumsModel.cs" />
+    <Compile Include="MateralTools\MEnum\Model\TimeType.cs" />
+    <Compile Include="MateralTools\MFormat\Manager\FormatManager.cs" />
+    <Compile Include="MateralTools\MFormat\Model\ReplaceStringModel.cs" />
+    <Compile Include="MateralTools\MHttpWeb\Manager\HttpWebManager.cs" />
+    <Compile Include="MateralTools\MHttpWeb\Model\HttpModel.cs" />
+    <Compile Include="MateralTools\MImage\Manager\ImageManager.cs" />
+    <Compile Include="MateralTools\MIO\Manager\IOManager.cs" />
+    <Compile Include="MateralTools\MKeyWord\Interface\IKeyWordManager.cs" />
+    <Compile Include="MateralTools\MKeyWord\Manager\KeyWordManager.cs" />
+    <Compile Include="MateralTools\MKeyWord\Model\KeyWordModel.cs" />
+    <Compile Include="MateralTools\MKeyWord\Model\KeyWordTreeNode.cs" />
+    <Compile Include="MateralTools\MLinq\Manager\LinqManager.cs" />
+    <Compile Include="MateralTools\MLog\Data\LogTxtData.cs" />
+    <Compile Include="MateralTools\MLog\Manager\LogManager.cs" />
+    <Compile Include="MateralTools\MLog\Model\LogModel.cs" />
+    <Compile Include="MateralTools\MLog\Model\LogStorageMode.cs" />
+    <Compile Include="MateralTools\MLog\Model\LogType.cs" />
+    <Compile Include="MateralTools\MMath\Manager\CircularManager.cs" />
+    <Compile Include="MateralTools\MMath\Model\CircularModel.cs" />
+    <Compile Include="MateralTools\MResult\Model\MPagingModel.cs" />
+    <Compile Include="MateralTools\MResult\Model\MResultModel.cs" />
+    <Compile Include="MateralTools\MVerify\Data\VerifyData.cs" />
+    <Compile Include="MateralTools\MVerify\Manager\VerifyCodeManager.cs" />
+    <Compile Include="MateralTools\MVerify\Manager\VerifyManager.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerfyType.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeConfigModel.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeException.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeImageObfuscationType.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeModel.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeTextConfigModel.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeTextModel.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyCodeType.cs" />
+    <Compile Include="MateralTools\MVerify\Model\VerifyModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Manager\WeChatManager.cs" />
+    <Compile Include="MateralTools\MWeChat\Manager\WeChatWorkManager.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatMenuModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatTokenModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkAccessTokenModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkJsapiTicketModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkJSSDKConfigModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkUserInfoModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MateralTools\MChat\Manager\ChatManager.js" />
+    <Content Include="MateralTools\MVerify\Content\Images\background01.jpg" />
+    <Content Include="MateralTools\MVerify\Content\正则表达式.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MateralTools\MChat\Manager\ChatManager.js.map" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="MateralTools\MChat\Manager\ChatManager.ts" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

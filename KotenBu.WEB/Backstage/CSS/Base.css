@@ -1,0 +1,19 @@
+﻿.OptionBtnGroup {
+    display: block !important;
+}
+
+.SearchForm > .form-group {
+    margin: 20px 0 10px !important;
+}
+
+.Close {
+    display: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.pagination {
+    cursor: pointer;
+}

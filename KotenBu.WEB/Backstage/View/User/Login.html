@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+    <link href="../../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../CSS/Base.css" rel="stylesheet" />
+    <link href="../../CSS/User/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <main>
+        <form id="InputForm">
+            <div class="form-group">
+                <h2>华亮窗业后台</h2>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon glyphicon glyphicon-user"></span>
+                    <input type="text" class="form-control" id="InputUserName" placeholder="请输入用户名/邮箱/手机" required>
+                </div>
+                <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                    <input type="password" class="form-control" id="InputPassword" placeholder="请输入登录密码" required>
+                </div>
+                <span class="help-block"></span>
+            </div>
+            <div class="form-group validatecode">
+                <input type="text" class="form-control" id="InputValidateCode" placeholder="请输入右侧图片验证码" required maxlength="4" autocomplete="off">
+                <img id="ValidateImg" title="点击重新加载验证码" src="/api/ValidateCode/GetValidateCode" />
+                <span class="help-block"></span>
+            </div>
+            <button id="BtnLogin" type="button" class="btn btn-primary btn-block">登录</button>
+        </form>
+    </main>
+    <script src="../../../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../../Scripts/bootstrap.min.js"></script>
+    <script src="../../../Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../../Lib/m-Reset/m-Reset.js"></script>
+    <script src="../../../Scripts/Base.js"></script>
+    <script src="../../Scripts/User/Login.js"></script>
+</body>
+</html>

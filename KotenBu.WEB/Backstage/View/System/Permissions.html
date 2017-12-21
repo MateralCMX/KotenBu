@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>权限配置</title>
+    <link href="../../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../CSS/Base.css" rel="stylesheet" />
+    <link href="../../CSS/System/Permissions.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="page-header">
+        <h1>权限中心 <small>权限配置</small></h1>
+    </header>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="SearchPermissionsType">权限类型</label>
+            <select id="SearchPermissionsType" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <div class="btn-group" role="group">
+                <button id="BtnAdd" type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">新增</button>
+            </div>
+        </div>
+    </form>
+    <main class="tree well" id="TreeList">
+    </main>
+    <!-- 删除窗体 -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="DeleteModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    确定要删除该项吗？
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnDelete" type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否，不删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 修改窗体 -->
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="EditModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="InputForm">
+                        <div class="form-group">
+                            <label class="control-label" for="InputName">名称*</label>
+                            <input type="text" class="form-control" id="InputName" placeholder="权限名称" maxlength="20" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputCode">权限代码*</label>
+                            <input type="text" class="form-control" id="InputCode" placeholder="权限代码" maxlength="100" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputIco">图标</label>
+                            <input type="text" class="form-control" id="InputIco" placeholder="图标代码" maxlength="80">
+                            <p class="help-block">
+                                图标代码可在<a target="_blank" href="http://v3.bootcss.com/components/#glyphicons">Bootstrap官网</a>获取
+                            </p>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input id="InputIfEnable" type="checkbox"> 启用
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputIntroduction">简介</label>
+                            <textarea id="InputIntroduction" class="form-control" placeholder="请填写简介信息" rows="3" maxlength="200"></textarea>
+                            <span class="help-block"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="BtnSave" type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../../Scripts/bootstrap.min.js"></script>
+    <script src="../../../Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../../Lib/m-Reset/m-Reset.js"></script>
+    <script src="../../../Scripts/Base.js"></script>
+    <script src="../../Scripts/System/Permissions.js"></script>
+</body>
+</html>

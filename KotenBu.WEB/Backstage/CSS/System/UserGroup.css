@@ -1,0 +1,16 @@
+﻿.PermissionsList, .PermissionsList ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 10px;
+}
+
+    .PermissionsList li {
+    }
+
+        .PermissionsList li input[type=checkbox] {
+            margin-right: 10px;
+        }
+
+        .PermissionsList li .btn-group {
+            margin-left: 10px;
+        }
